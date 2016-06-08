@@ -1,0 +1,24 @@
+{
+  "name": "poster-server",
+  "version": "0.1.0",
+  "description": "A Light-weight ExpressJS REST server for Poster app, it consumes TMDb public APIs.",
+  "author": "Kushal Pandya <kushalspandya@gmail.com> (https://doublslash.com)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kushalpandya/poster-server.git"
+  },
+  "keywords": [
+    "express",
+    "rest",
+    "tmdb"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kushalpandya/poster-server/issues"
+  },
+  "homepage": "https://github.com/kushalpandya/poster-server#readme"
+}
