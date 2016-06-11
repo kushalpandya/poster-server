@@ -1,0 +1,9 @@
+{
+    "poster": {
+        "httpPort": "9000",
+        "tmdbApiKey": "fed237b46b63d7a2c1fc6e8e566f3870"
+    },
+    "morgan": {
+        "logType": "dev"
+    }
+}
