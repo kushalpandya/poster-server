@@ -8,3 +8,31 @@
  *
  * Poster App Main Script.
  */
+
+/*
+ * Load Configurations and Utilities.
+ */
+var stringTemplate = require('string-template'),
+    configuration = require('./configuration.json');
+
+/*
+ * Load Modules.
+ */
+var express = require('express'),
+    morgan = require('morgan');
+
+/*
+ * Init App Modules
+ */
+var posterRoutes = require('./routes/poster'),
+    posterApp;
+
+/*
+ * Intialize App Server.
+ */
+posterApp = express();
+
+posterApp.use(morgan(configuration.morgan.logType));
+posterApp.use('/api', posterRoutes);
+
+module.exports = posterApp;
