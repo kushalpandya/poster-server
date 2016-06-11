@@ -22,17 +22,12 @@ var express = require('express'),
     morgan = require('morgan');
 
 /*
- * Init App Modules
- */
-var posterRoutes = require('./routes/poster'),
-    posterApp;
-
-/*
  * Intialize App Server.
  */
-posterApp = express();
+var posterApp = express();
 
+posterApp.locals.tmdbApiKey = configuration.poster.tmdbApiKey;
 posterApp.use(morgan(configuration.morgan.logType));
-posterApp.use('/api', posterRoutes);
+posterApp.use('/api', require('./routes'));
 
 module.exports = posterApp;
