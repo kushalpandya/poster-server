@@ -24,7 +24,6 @@ router.get('/:movieId', function(req, res) {
             if (err)
                 res.send(err);
 
-            req.app.set('movie_meta', tmdbRes);
             res.json(tmdbRes);
         }
     );
