@@ -26,6 +26,7 @@
     "express": "^4.13.4",
     "method-override": "^2.3.6",
     "morgan": "^1.7.0",
+    "moviedb": "^0.2.3",
     "string-template": "^1.0.0"
   }
 }
