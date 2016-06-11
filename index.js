@@ -8,3 +8,11 @@
  *
  * Poster Server Script.
  */
+
+var configuration = require('./configuration.json');
+
+var posterApp = require('./app');
+
+posterApp.listen(process.env.PORT || configuration.poster.httpPort);
+
+console.log("Poster Server started on port : ", process.env.PORT || configuration.poster.httpPort);
