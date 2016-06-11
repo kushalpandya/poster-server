@@ -21,5 +21,6 @@ router.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 router.use(methodOverride());
 
 router.use('/movie', require('./movie'));
+router.use('/person', require('./person'));
 
 module.exports = router;
