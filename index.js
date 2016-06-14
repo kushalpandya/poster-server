@@ -9,10 +9,17 @@
  * Poster Server Script.
  */
 
+var os = require("os");
+
 var configuration = require('./configuration.json');
 
 var posterApp = require('./app');
 
-posterApp.listen(process.env.PORT || configuration.poster.httpPort);
-
-console.log("Poster Server started on port : ", process.env.PORT || configuration.poster.httpPort);
+posterApp.listen(process.env.PORT || configuration.poster.httpPort, function() {
+    console.info(
+        "Poster Server started at http://%s:%d at %s",
+        os.hostname(),
+        process.env.PORT || configuration.poster.httpPort,
+        new Date()
+    );
+});
