@@ -28,6 +28,11 @@ var posterApp = express();
 
 posterApp.locals.tmdbApiKey = configuration.poster.tmdbApiKey;
 posterApp.use(morgan(configuration.morgan.logType));
+posterApp.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 posterApp.use('/api', require('./routes'));
 
 module.exports = posterApp;
