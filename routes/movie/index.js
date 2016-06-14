@@ -30,11 +30,37 @@ router.get('/:movieId', function(req, res) {
 });
 
 // @GET
-// Gets Movie Information for a movieId available.
+// Gets List of Movies Currently Playing in Theaters.
+router.get('/popular', function(req, res) {
+    var tmdb = require('moviedb')(req.app.locals.tmdbApiKey);
+
+    tmdb.miscPopularMovies({}, function(err, tmdbRes) {
+        if (err)
+            res.send(err);
+
+        res.json(tmdbRes);
+    });
+});
+
+// @GET
+// Gets List of Top 20 Highest Rated Movies.
 router.get('/top_rated', function(req, res) {
     var tmdb = require('moviedb')(req.app.locals.tmdbApiKey);
 
-    tmdb.miscTopRatedMovies({}, function(err, tmdbRes) {
+    tmdb.miscTopRatedMovies(function(err, tmdbRes) {
+        if (err)
+            res.send(err);
+
+        res.json(tmdbRes);
+    });
+});
+
+// @GET
+// Gets List of Upcoming Movies.
+router.get('/upcoming', function(req, res) {
+    var tmdb = require('moviedb')(req.app.locals.tmdbApiKey);
+
+    tmdb.miscUpcomingMovies(function(err, tmdbRes) {
         if (err)
             res.send(err);
 
