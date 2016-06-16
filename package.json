@@ -24,6 +24,7 @@
   "homepage": "https://github.com/kushalpandya/poster-server#readme",
   "dependencies": {
     "body-parser": "^1.15.1",
+    "cors": "^2.7.1",
     "express": "^4.13.4",
     "method-override": "^2.3.6",
     "morgan": "^1.7.0",
