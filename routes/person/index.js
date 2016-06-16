@@ -13,7 +13,7 @@ var router = require('express').Router();
 
 // @GET
 // Gets Person Information for a personId available.
-router.get('/:personId', function(req, res) {
+router.get('/info/:personId', function(req, res) {
     var tmdb = require('moviedb')(req.app.locals.tmdbApiKey);
 
     tmdb.personInfo(
