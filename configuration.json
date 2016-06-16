@@ -1,7 +1,17 @@
 {
     "poster": {
         "httpPort": "9000",
-        "tmdbApiKey": "fed237b46b63d7a2c1fc6e8e566f3870"
+        "tmdbApiKey": "fed237b46b63d7a2c1fc6e8e566f3870",
+        "tmdbMoviePosterURL": {
+            "small": "https://image.tmdb.org/t/p/w185/",
+            "medium": "https://image.tmdb.org/t/p/w396/",
+            "orignal": "https://image.tmdb.org/t/p/original/"
+        },
+        "tmdbMovieBackdropURL": {
+            "small": "https://image.tmdb.org/t/p/w300/",
+            "medium": "https://image.tmdb.org/t/p/w780/",
+            "original": "https://image.tmdb.org/t/p/original/"
+        }
     },
     "morgan": {
         "logType": "dev"
