@@ -19,7 +19,8 @@ var stringTemplate = require('string-template'),
  * Load Modules.
  */
 var express = require('express'),
-    morgan = require('morgan');
+    morgan = require('morgan'),
+    cors = require('cors');
 
 /*
  * Intialize App Server.
@@ -27,12 +28,10 @@ var express = require('express'),
 var posterApp = express();
 
 posterApp.locals.tmdbApiKey = configuration.poster.tmdbApiKey;
+posterApp.locals.tmdbMoviePosterURL = configuration.poster.tmdbMoviePosterURL;
+posterApp.locals.tmdbMovieBackdropURL = configuration.poster.tmdbMovieBackdropURL;
 posterApp.use(morgan(configuration.morgan.logType));
-posterApp.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+posterApp.use(cors());
 posterApp.use('/api', require('./routes'));
 
 module.exports = posterApp;
