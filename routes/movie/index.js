@@ -9,7 +9,8 @@
  * /api/movie end-points.
  */
 
-var router = require('express').Router();
+var router = require('express').Router(),
+    tmdbImages = require('../../middleware/tmdbimages');
 
 // @GET
 // Gets Movie Information for a movieId available.
@@ -23,6 +24,12 @@ router.get('/info/:movieId', function(req, res) {
         function(err, tmdbRes) {
             if (err)
                 res.send(err);
+
+            tmdbImages({
+                root: tmdbRes,
+                posterPrefix: req.app.locals.tmdbMoviePosterURL,
+                backdropPrefix: req.app.locals.tmdbMovieBackdropURL
+            });
 
             res.json(tmdbRes);
         }
@@ -38,6 +45,12 @@ router.get('/popular', function(req, res) {
         if (err)
             res.send(err);
 
+        tmdbImages({
+            root: tmdbRes.results,
+            posterPrefix: req.app.locals.tmdbMoviePosterURL,
+            backdropPrefix: req.app.locals.tmdbMovieBackdropURL
+        });
+
         res.json(tmdbRes);
     });
 });
@@ -52,6 +65,12 @@ router.get('/top_rated', function(req, res) {
         if (err)
             res.send(err);
 
+        tmdbImages({
+            root: tmdbRes.results,
+            posterPrefix: req.app.locals.tmdbMoviePosterURL,
+            backdropPrefix: req.app.locals.tmdbMovieBackdropURL
+        });
+
         res.json(tmdbRes);
     });
 });
@@ -64,6 +83,12 @@ router.get('/upcoming', function(req, res) {
     tmdb.miscUpcomingMovies(function(err, tmdbRes) {
         if (err)
             res.send(err);
+
+        tmdbImages({
+            root: tmdbRes.results,
+            posterPrefix: req.app.locals.tmdbMoviePosterURL,
+            backdropPrefix: req.app.locals.tmdbMovieBackdropURL
+        });
 
         res.json(tmdbRes);
     });
