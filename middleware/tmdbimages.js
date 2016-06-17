@@ -12,9 +12,11 @@
 'use strict';
 
 module.exports = function(options) {
-    var objRoot = (options && options.root) || null,
+    var randomColor = require('randomcolor'),
+        objRoot = (options && options.root) || null,
         posterPrefix = (options && options.posterPrefix) || null,
         backdropPrefix = (options && options.backdropPrefix) || null,
+        colorCollection,
         processURLs;
 
     /**
@@ -26,11 +28,14 @@ module.exports = function(options) {
             newBackdropPath = {},
             size;
 
+        if (!movieObj.backdrop_path)
+            movieObj.backdrop_color = colorCollection.pop();
+
         for (size in posterPrefix)
-            newPosterPath[size] = `${posterPrefix[size]}${movieObj.poster_path}`;
+            newPosterPath[size] = movieObj.poster_path ? `${posterPrefix[size]}${movieObj.poster_path}` : null;
 
         for (size in backdropPrefix)
-            newBackdropPath[size] = `${backdropPrefix[size]}${movieObj.backdrop_path}`;
+            newBackdropPath[size] = movieObj.backdrop_path ? `${backdropPrefix[size]}${movieObj.backdrop_path}` : null;
 
         movieObj.poster_path = newPosterPath;
         movieObj.backdrop_path = newBackdropPath;
@@ -42,6 +47,8 @@ module.exports = function(options) {
 
     if (Array.isArray(objRoot))
     {
+        colorCollection = randomColor({luminosity: 'light', count: objRoot.length});
+
         // Iterate over results list and process URLs.
         objRoot.map(function(movie, i) {
             processURLs(movie);
