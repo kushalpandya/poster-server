@@ -29,6 +29,7 @@
     "method-override": "^2.3.6",
     "morgan": "^1.7.0",
     "moviedb": "^0.2.3",
+    "randomcolor": "^0.4.4",
     "string-template": "^1.0.0"
   }
 }
