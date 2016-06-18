@@ -16,8 +16,29 @@ module.exports = function(options) {
         objRoot = (options && options.root) || null,
         posterPrefix = (options && options.posterPrefix) || null,
         backdropPrefix = (options && options.backdropPrefix) || null,
+        profilePrefix = (options && options.profilePrefix) || null,
         colorCollection,
+        processProfileURLs,
         processURLs;
+
+    /**
+     * This method overrides 'profile_path' for a Profile within credits
+     * in movie Object to a map with perma-links to smaller, small, medium & orignal images.
+     */
+    processProfileURLs = function(profiles) {
+        var newProfilePath = {},
+            size,
+            i;
+
+        for (i = 0; i < profiles.length; i++)
+        {
+            newProfilePath = {};
+            for (size in profilePrefix)
+                newProfilePath[size] = profiles[i].profile_path ? `${profilePrefix[size]}${profiles[i].profile_path}` : null;
+
+            profiles[i].profile_path = newProfilePath;
+        }
+    };
 
     /**
      * This method overrides 'poster_path' & 'backdrop_path' properties
@@ -26,7 +47,9 @@ module.exports = function(options) {
     processURLs = function(movieObj) {
         var newPosterPath = {},
             newBackdropPath = {},
-            size;
+            newProfilePath = {},
+            credits = movieObj.credits,
+            size, i;
 
         if (!movieObj.backdrop_path)
             movieObj.backdrop_color = colorCollection.pop();
@@ -37,8 +60,17 @@ module.exports = function(options) {
         for (size in backdropPrefix)
             newBackdropPath[size] = movieObj.backdrop_path ? `${backdropPrefix[size]}${movieObj.backdrop_path}` : null;
 
+        if (profilePrefix)
+        {
+            processProfileURLs(credits.actors);
+            processProfileURLs(credits.directors);
+            processProfileURLs(credits.writers);
+            processProfileURLs(credits.producers);
+        }
+
         movieObj.poster_path = newPosterPath;
         movieObj.backdrop_path = newBackdropPath;
+        movieObj.credits = credits;
     };
 
     // Verify if it is a valid object.
