@@ -10,13 +10,35 @@
  */
 
 var router = require('express').Router(),
-    tmdbImages = require('../../middleware/tmdbimages'),
+    _ = require('lodash');
+
+var tmdbImages = require('../../middleware/tmdbimages'),
+    tmdbCredits = require('../../middleware/tmdbcredits'),
     sanitizeQuery = require('../../middleware/sanitizequery');
 
 // @GET
 // Gets Movie Information for a movieId available.
 router.get('/info/:movieId', function(req, res) {
-    var tmdb = require('moviedb')(req.app.locals.tmdbApiKey);
+    var tmdb = require('moviedb')(req.app.locals.tmdbApiKey),
+        finished,
+        processResponse,
+        movieInfo,
+        credits;
+
+    processResponse = function() {
+        movieInfo.credits = tmdbCredits(credits);
+
+        tmdbImages({
+            root: movieInfo,
+            posterPrefix: req.app.locals.tmdbMoviePosterURL,
+            backdropPrefix: req.app.locals.tmdbMovieBackdropURL,
+            profilePrefix: req.app.locals.tmdbProfileURL
+        });
+
+        res.json(movieInfo);
+    };
+
+    var finished = _.after(2, processResponse);
 
     tmdb.movieInfo(
         {
@@ -26,13 +48,23 @@ router.get('/info/:movieId', function(req, res) {
             if (err)
                 res.send(err);
 
-            tmdbImages({
-                root: tmdbRes,
-                posterPrefix: req.app.locals.tmdbMoviePosterURL,
-                backdropPrefix: req.app.locals.tmdbMovieBackdropURL
-            });
+            movieInfo = tmdbRes;
 
-            res.json(tmdbRes);
+            finished();
+        }
+    );
+
+    tmdb.movieCredits(
+        {
+            id: req.params.movieId
+        },
+        function(err, tmdbRes) {
+            if (err)
+                res.send(err);
+
+            credits = tmdbRes;
+
+            finished();
         }
     );
 });
