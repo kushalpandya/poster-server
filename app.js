@@ -30,6 +30,7 @@ var posterApp = express();
 posterApp.locals.tmdbApiKey = configuration.poster.tmdbApiKey;
 posterApp.locals.tmdbMoviePosterURL = configuration.poster.tmdbMoviePosterURL;
 posterApp.locals.tmdbMovieBackdropURL = configuration.poster.tmdbMovieBackdropURL;
+posterApp.locals.tmdbProfileURL = configuration.poster.tmdbProfileURL;
 posterApp.use(morgan(configuration.morgan.logType));
 posterApp.use(cors());
 posterApp.use('/api', require('./routes'));
