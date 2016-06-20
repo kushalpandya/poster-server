@@ -12,8 +12,8 @@
 'use strict';
 
 module.exports = function(credits) {
-    var primaryActors = credits.cast.slice(0, 4),
-        crewItems = credits.crew,
+    var crewItems = credits.crew,
+        actors = credits.cast.slice(0, 4),
         directors = [],
         writers = [],
         producers = [];
@@ -31,7 +31,7 @@ module.exports = function(credits) {
              directors.push(crewItems[i]);
 
          if (crewItems[i].department === "Writing" &&
-             crewItems[i].job === "Screenplay")
+             (crewItems[i].job === "Screenplay" || crewItems[i].job === "Novel" || crewItems[i].job === "Writer"))
              writers.push(crewItems[i]);
 
          if (crewItems[i].department === "Production" &&
@@ -40,7 +40,7 @@ module.exports = function(credits) {
      }
 
      return {
-         actors: primaryActors,
+         actors: actors,
          directors: directors,
          writers: writers,
          producers: producers
