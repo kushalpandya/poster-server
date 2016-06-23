@@ -30,6 +30,7 @@
     "method-override": "^2.3.6",
     "morgan": "^1.7.0",
     "moviedb": "^0.2.3",
+    "nedb": "^1.8.0",
     "randomcolor": "^0.4.4",
     "string-template": "^1.0.0"
   }
