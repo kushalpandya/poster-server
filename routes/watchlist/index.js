@@ -31,7 +31,7 @@ router.put('/', function(req, res) {
 
         res.json({
             status: 0,
-            moviesAdded: 1,
+            moviesAdded: wdbRes ? 1 : 0,
             movie: wdbRes
         });
     });
