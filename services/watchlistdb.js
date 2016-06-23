@@ -43,6 +43,8 @@ var WatchlistService = {
         this.watchlistDB.find({ id: movie.id }, function(err, matches) {
             if (matches.length === 0)
                 _this.watchlistDB.insert(movie, fnCallback);
+            else
+                fnCallback(err, null);
         });
     },
 
