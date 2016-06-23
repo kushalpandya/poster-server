@@ -9,12 +9,19 @@
  * /api/movie end-points.
  */
 
+/*
+ * Load Frameworks
+ */
 var router = require('express').Router(),
     _ = require('lodash');
 
-var tmdbImages = require('../../middleware/tmdbimages'),
-    tmdbCredits = require('../../middleware/tmdbcredits'),
-    sanitizeQuery = require('../../middleware/sanitizequery');
+/*
+ * Load Middleware
+ */
+var tmdbImages      = require('../../middleware/tmdbimages'),
+    tmdbCredits     = require('../../middleware/tmdbcredits'),
+    sanitizeQuery   = require('../../middleware/sanitizequery'),
+    watchlist       = require('../../middleware/watchlist');
 
 // @GET
 // Gets Movie Information for a movieId available.
@@ -35,7 +42,9 @@ router.get('/info/:movieId', function(req, res) {
             profilePrefix: req.app.locals.tmdbProfileURL
         });
 
-        res.json(movieInfo);
+        watchlist(movieInfo, function() {
+            res.json(movieInfo);
+        });
     };
 
     var finished = _.after(2, processResponse);
@@ -84,7 +93,9 @@ router.get('/popular', function(req, res) {
             backdropPrefix: req.app.locals.tmdbMovieBackdropURL
         });
 
-        res.json(tmdbRes);
+        watchlist(tmdbRes.results, function() {
+            res.json(tmdbRes);
+        });
     });
 });
 
@@ -104,7 +115,9 @@ router.get('/top_rated', function(req, res) {
             backdropPrefix: req.app.locals.tmdbMovieBackdropURL
         });
 
-        res.json(tmdbRes);
+        watchlist(tmdbRes.results, function() {
+            res.json(tmdbRes);
+        });
     });
 });
 
@@ -123,7 +136,9 @@ router.get('/upcoming', function(req, res) {
             backdropPrefix: req.app.locals.tmdbMovieBackdropURL
         });
 
-        res.json(tmdbRes);
+        watchlist(tmdbRes.results, function() {
+            res.json(tmdbRes);
+        });
     });
 });
 
@@ -164,7 +179,9 @@ router.get('/search', function(req, res) {
                 backdropPrefix: req.app.locals.tmdbMovieBackdropURL
             });
 
-            res.json(tmdbRes);
+            watchlist(tmdbRes.results, function() {
+                res.json(tmdbRes);
+            });
         }
     );
 });
