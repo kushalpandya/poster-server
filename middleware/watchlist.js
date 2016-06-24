@@ -24,9 +24,9 @@ module.exports = function(tmdbResponse, fnCallback) {
             if (wdbRes)
             {
                 _.merge(tmdbResponse, {
-                    watchlist: wdbRes[0].watchlist,
-                    createdAt: wdbRes[0].createdAt,
-                    updatedAt: wdbRes[0].updatedAt
+                    watchlist: wdbRes.watchlist,
+                    createdAt: wdbRes.createdAt,
+                    updatedAt: wdbRes.updatedAt
                 });
             }
 
