@@ -21,7 +21,7 @@ module.exports = function(tmdbResponse, fnCallback) {
     if (!Array.isArray(tmdbResponse))
     {
         wdb.findInWatchlist(tmdbResponse.id, function(err, wdbRes) {
-            if (wdbRes.length > 0)
+            if (wdbRes)
             {
                 _.merge(tmdbResponse, {
                     watchlist: wdbRes[0].watchlist,
@@ -36,7 +36,7 @@ module.exports = function(tmdbResponse, fnCallback) {
     else
     {
         wdb.getWatchlistMovieMap(function(err, wdbRes) {
-            if (Object.keys(wdbRes).length > -1)
+            if (wdbRes && Object.keys(wdbRes).length > 0)
             {
                 tmdbResponse.forEach(function(movie) {
                     if (wdbRes[movie.id])
