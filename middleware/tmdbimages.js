@@ -17,7 +17,7 @@ module.exports = function(options) {
         posterPrefix = (options && options.posterPrefix) || null,
         backdropPrefix = (options && options.backdropPrefix) || null,
         profilePrefix = (options && options.profilePrefix) || null,
-        colorCollection,
+        colorCollection = [],
         processProfileURLs,
         processURLs;
 
