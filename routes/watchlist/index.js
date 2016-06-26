@@ -39,27 +39,6 @@ router.put('/', function(req, res) {
 
 // @DELETE
 // Deletes an item from the Watchlist DB using Watchlist Service.
-router.get('/:movieId', function(req, res) {
-    var movieId = +req.params.movieId;
-
-    wdb.findInWatchlist(movieId, function(err, wdbRes) {
-        if (err)
-        {
-            res.json({
-                status: -1,
-                errorMessage: "Something went wrong while finding item."
-            });
-        }
-
-        res.json({
-            status: 0,
-            movie: wdbRes
-        });
-    });
-});
-
-// @DELETE
-// Deletes an item from the Watchlist DB using Watchlist Service.
 router.delete('/:movieId', function(req, res) {
     var movieId = +req.params.movieId;
 
